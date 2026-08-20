@@ -41,6 +41,7 @@ body { background: var(--background); color: var(--foreground); font-family: 'In
 .text-gradient { background: linear-gradient(100deg, #ff2db1 8%, #ff8a21 48%, #ffe126 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--secondary); }
 .service-card { min-height: 340px; border: 1px solid rgba(255,255,255,.12); padding: 28px; transition: transform .3s ease, border-color .3s ease, background .3s ease; }
+@media (min-width: 1024px) { .service-card { min-height: 400px; padding: 36px; } }
 .service-card:hover { transform: translateY(-8px); border-color: currentColor; background: rgba(255,255,255,.04); }
 .service-card.pink { color: var(--primary); } .service-card.orange { color: #ff8a21; } .service-card.blue { color: var(--secondary); }
 .animate-float { animation: float 5s ease-in-out infinite; }
