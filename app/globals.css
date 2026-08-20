@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+:root {
+  --background: #080611;
+  --foreground: #f8f6ff;
+  --card: #100b1e;
+  --card-foreground: #f8f6ff;
+  --primary: #ff2db1;
+  --primary-foreground: #160615;
+  --secondary: #00ccff;
+  --secondary-foreground: #031319;
+  --muted: #171025;
+  --muted-foreground: #aaa3bc;
+  --border: rgba(255,255,255,0.12);
+}
+
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body { background: var(--background); color: var(--foreground); font-family: 'Inter', sans-serif; }
+
+.gridlines { background-image: linear-gradient(rgba(255,45,177,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,204,255,.06) 1px, transparent 1px); background-size: 58px 58px; mask-image: linear-gradient(to bottom, black, transparent 85%); }
+.scanline { background: repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,.018) 4px); }
+.text-gradient { background: linear-gradient(100deg, #ff2db1 8%, #ff8a21 48%, #ffe126 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--secondary); }
+.service-card { min-height: 340px; border: 1px solid rgba(255,255,255,.12); padding: 28px; transition: transform .3s ease, border-color .3s ease, background .3s ease; }
+.service-card:hover { transform: translateY(-8px); border-color: currentColor; background: rgba(255,255,255,.04); }
+.service-card.pink { color: var(--primary); } .service-card.orange { color: #ff8a21; } .service-card.blue { color: var(--secondary); }
+.animate-float { animation: float 5s ease-in-out infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
