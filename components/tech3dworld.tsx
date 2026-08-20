@@ -1,9 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { ArrowRight, Box, Cpu, Gift, Flower2, KeyRound, Layers3, Lightbulb, Menu, MoveUpRight, PawPrint, Printer, Sparkles, Type, Wand2, X } from 'lucide-react'
-import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowDown, ArrowRight, ArrowUp, Box, Cpu, Gift, Flower2, KeyRound, Layers3, Lightbulb, Menu, MoveUpRight, PawPrint, Printer, Sparkles, Type, Wand2, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const logo = '/tech3d-logo-transparent.png'
 
@@ -32,6 +32,23 @@ const reveal = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, tra
 
 export function Tech3DWorld() {
   const [open, setOpen] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [atBottom, setAtBottom] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 100)
+      setAtBottom(window.scrollY > 300)
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleScrollToggle = () => {
+    window.scrollTo({ top: atBottom ? 0 : document.body.scrollHeight, behavior: 'smooth' })
+  }
+
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/85 backdrop-blur-xl">
@@ -76,6 +93,47 @@ export function Tech3DWorld() {
       <section id="contato" className="relative border-t border-white/10 bg-card/40 px-5 py-28 text-center lg:px-8 lg:py-36"><div className="gridlines pointer-events-none absolute inset-0 opacity-30" /><div className="relative mx-auto max-w-4xl lg:max-w-5xl"><Layers3 className="mx-auto size-10 text-primary lg:size-14" /><h2 className="mt-7 text-balance font-mono text-5xl font-black uppercase leading-none tracking-tight text-white sm:text-7xl lg:mt-9 lg:text-8xl">Vamos criar<br /><span className="text-gradient">o próximo mundo.</span></h2><p className="mx-auto mt-7 max-w-xl text-lg font-light leading-8 tracking-[0.01em] text-white/75 lg:mt-9 lg:max-w-2xl lg:text-xl lg:leading-9">Você traz a pergunta. A gente constrói a possibilidade.</p><a href="mailto:hello@tech3dworld.com" className="mt-9 inline-flex rounded-full border border-white/20 px-7 py-4 font-bold text-white transition hover:border-secondary hover:text-secondary lg:mt-12 lg:px-9 lg:py-5 lg:text-lg">hello@tech3dworld.com <ArrowRight className="ml-3 size-5 lg:size-6" /></a></div></section>
 
       <footer className="border-t border-white/10 px-5 py-8 lg:px-8 lg:py-10"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 text-xs text-muted-foreground sm:flex-row lg:text-sm xl:max-w-[90rem]"><span>© 2026 TECH3DWORLD. TODOS OS DIREITOS RESERVADOS.</span><span className="font-mono tracking-widest text-primary">MADE FOR THE CURIOUS_</span></div></footer>
+
+      <AnimatePresence>
+        {visible && (
+          <motion.button
+            type="button"
+            onClick={handleScrollToggle}
+            initial={{ opacity: 0, scale: 0.7, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.7, y: 16 }}
+            transition={{ duration: 0.3 }}
+            aria-label={atBottom ? 'Voltar ao topo' : 'Ir para o final da página'}
+            className="fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full border border-primary/50 bg-background/80 text-primary shadow-[0_0_25px_rgba(255,45,177,0.45)] backdrop-blur-xl transition hover:border-primary hover:shadow-[0_0_35px_rgba(255,45,177,0.65)] lg:bottom-8 lg:right-8 lg:size-14"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {atBottom ? (
+                <motion.span
+                  key="up"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex items-center justify-center"
+                >
+                  <ArrowUp className="size-5 lg:size-6" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="down"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex items-center justify-center"
+                >
+                  <ArrowDown className="size-5 lg:size-6" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
