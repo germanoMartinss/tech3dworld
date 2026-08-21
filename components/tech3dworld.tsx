@@ -13,9 +13,9 @@ const categories = [
   { icon: Cpu, title: 'Tecnologia', copy: 'Ferramentas e conhecimento para criar melhor.', color: 'blue' },
 ]
 
-// TODO: substituir pelo número real de WhatsApp da Tech3Dworld
-const whatsappNumber = '5511999999999'
+const whatsappNumber = '5513978231058'
 const whatsappLink = (product: string) => `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Olá! Tenho interesse no ${product}.`)}`
+const whatsappContactLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Gostaria de falar com a Tech3Dworld.')}`
 
 const catalog = [
   { icon: KeyRound, title: 'Chaveiro Personalizado', category: 'Chaveiros', copy: 'Nome, frase ou logo em resina resistente.', price: 'A partir de R$ 25', color: 'pink' },
@@ -59,7 +59,7 @@ export function Tech3DWorld() {
           </a>
           <div className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground md:flex lg:gap-10 lg:text-sm">
             <a href="#sobre" className="transition-colors hover:text-white">Sobre</a><a href="#servicos" className="transition-colors hover:text-white">Serviços</a><a href="#catalogo" className="transition-colors hover:text-white">Catálogo</a><a href="#processo" className="transition-colors hover:text-white">Processo</a>
-            <a href="#contato" className="rounded-full border border-primary/60 px-5 py-2.5 text-white transition hover:bg-primary/15 lg:px-6 lg:py-3">Fale conosco <MoveUpRight className="ml-1 inline size-3" /></a>
+            <a href={whatsappContactLink} target="_blank" rel="noopener noreferrer" className="rounded-full border border-primary/60 px-5 py-2.5 text-white transition hover:bg-primary/15 lg:px-6 lg:py-3">Fale conosco <MoveUpRight className="ml-1 inline size-3" /></a>
           </div>
           <button className="rounded-lg p-2 text-white md:hidden" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button>
         </nav>
