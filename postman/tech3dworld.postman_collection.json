@@ -1,0 +1,148 @@
+{
+  "info": {
+    "name": "Tech3dworld",
+    "description": "API do catálogo da Tech3dworld (Next.js Route Handler em app/api/produtos/route.ts).\n\nRode `npm run dev` antes de enviar as requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Listar todos os produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "produtos"]
+        },
+        "description": "Retorna o catálogo completo no formato { products, total }."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Resposta é JSON', () => {",
+              "  pm.response.to.be.json;",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "",
+              "pm.test('Formato { products: [], total: number }', () => {",
+              "  pm.expect(body.products).to.be.an('array');",
+              "  pm.expect(body.total).to.be.a('number');",
+              "});",
+              "",
+              "pm.test('total é igual à quantidade de produtos', () => {",
+              "  pm.expect(body.total).to.eql(body.products.length);",
+              "});",
+              "",
+              "pm.test('Cada produto tem os campos esperados', () => {",
+              "  body.products.forEach((product) => {",
+              "    pm.expect(product).to.include.all.keys('id', 'title', 'category', 'description', 'priceFrom', 'color', 'icon');",
+              "    pm.expect(product.priceFrom).to.be.a('number');",
+              "    pm.expect(['chaveiros', 'decor', 'personalizados']).to.include(product.category);",
+              "  });",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Filtrar por categoria (válida)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos?categoria=chaveiros",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "produtos"],
+          "query": [
+            { "key": "categoria", "value": "chaveiros", "description": "chaveiros | decor | personalizados" }
+          ]
+        },
+        "description": "Troque o valor de `categoria` na aba Params para testar decor e personalizados."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', () => {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "const categoria = pm.request.url.query.get('categoria');",
+              "",
+              "pm.test('Retorna ao menos um produto', () => {",
+              "  pm.expect(body.products).to.be.an('array').that.is.not.empty;",
+              "});",
+              "",
+              "pm.test(`Todos os produtos são da categoria \"${categoria}\"`, () => {",
+              "  body.products.forEach((product) => {",
+              "    pm.expect(product.category).to.eql(categoria);",
+              "  });",
+              "});",
+              "",
+              "pm.test('total é igual à quantidade de produtos', () => {",
+              "  pm.expect(body.total).to.eql(body.products.length);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categoria inválida (400)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos?categoria=brinquedos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "produtos"],
+          "query": [
+            { "key": "categoria", "value": "brinquedos" }
+          ]
+        },
+        "description": "Categoria fora da lista deve retornar 400 com { error }."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 400 (Bad Request)', () => {",
+              "  pm.response.to.have.status(400);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "",
+              "pm.test('Formato { error: string }', () => {",
+              "  pm.expect(body).to.have.property('error').that.is.a('string');",
+              "  pm.expect(body).to.not.have.property('products');",
+              "});",
+              "",
+              "pm.test('Mensagem explica o erro e lista as categorias válidas', () => {",
+              "  pm.expect(body.error).to.include('Categoria inválida');",
+              "  pm.expect(body.error).to.include('chaveiros, decor, personalizados');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
