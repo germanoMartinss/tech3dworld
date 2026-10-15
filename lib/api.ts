@@ -30,12 +30,23 @@ export async function fetchProducts({ categoria, signal }: FetchProductsParams =
   return data
 }
 
-/** Traduz qualquer erro de requisição em uma mensagem para o usuário. */
-export function getErrorMessage(error: unknown): string {
+export type ErrorDescription = {
+  /** Texto amigável para o usuário: diz o que fazer, sem jargão técnico. */
+  message: string
+  /** Detalhe técnico para console/log (e para a tela só em desenvolvimento). */
+  detail: string
+}
+
+export function describeError(error: unknown): ErrorDescription {
   if (isAxiosError<ApiError>(error)) {
-    if (error.response?.data?.error) return error.response.data.error
-    if (error.code === 'ECONNABORTED') return 'O servidor demorou demais para responder.'
-    if (!error.response) return 'Não foi possível conectar ao servidor. Verifique sua conexão.'
+    const reason = error.response?.data?.error ?? error.message
+    if (error.code === 'ECONNABORTED') {
+      return { message: 'O servidor demorou para responder. Tente novamente em instantes.', detail: `Timeout: ${reason}` }
+    }
+    if (!error.response) {
+      return { message: 'Não foi possível conectar. Verifique sua internet e tente novamente.', detail: `Sem resposta (${error.code}): ${reason}` }
+    }
+    return { message: 'Não conseguimos carregar os produtos agora. Tente novamente em instantes.', detail: `HTTP ${error.response.status}: ${reason}` }
   }
-  return 'Algo deu errado ao carregar os produtos.'
+  return { message: 'Algo deu errado ao carregar os produtos. Tente novamente.', detail: String(error) }
 }

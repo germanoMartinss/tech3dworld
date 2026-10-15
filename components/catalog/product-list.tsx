@@ -6,7 +6,7 @@ import { ProductListEmpty } from '@/components/catalog/product-list-empty'
 import { ProductListError } from '@/components/catalog/product-list-error'
 import { ProductListSkeleton } from '@/components/catalog/product-list-skeleton'
 import { Reveal } from '@/components/reveal'
-import { fetchProducts, getErrorMessage } from '@/lib/api'
+import { describeError, fetchProducts } from '@/lib/api'
 import { productIcons } from '@/lib/product-icons'
 import { whatsappLink } from '@/lib/site'
 
@@ -18,7 +18,10 @@ export function ProductList() {
 
   if (isPending) return <ProductListSkeleton />
 
-  if (isError) return <ProductListError message={getErrorMessage(error)} onRetry={() => refetch()} />
+  if (isError) {
+    const { message, detail } = describeError(error)
+    return <ProductListError message={message} detail={detail}onRetry={() => refetch()} />
+  }
 
   if (data.products.length === 0) return <ProductListEmpty />
 
