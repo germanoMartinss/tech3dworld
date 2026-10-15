@@ -1,17 +1,30 @@
+'use client'
+
+import { useQuery } from '@tanstack/react-query'
 import { ArrowRight } from 'lucide-react'
+import { ProductListEmpty } from '@/components/catalog/product-list-empty'
+import { ProductListError } from '@/components/catalog/product-list-error'
+import { ProductListSkeleton } from '@/components/catalog/product-list-skeleton'
 import { Reveal } from '@/components/reveal'
+import { fetchProducts, getErrorMessage } from '@/lib/api'
 import { productIcons } from '@/lib/product-icons'
 import { whatsappLink } from '@/lib/site'
-import type { Product } from '@/lib/types'
 
-type ProductListProps = {
-  products: Product[]
-}
+export function ProductList() {
+  const { data, isPending, isError, error, refetch } = useQuery({
+    queryKey: ['products'],
+    queryFn: ({ signal }) => fetchProducts({ signal }),
+  })
 
-export function ProductList({ products }: ProductListProps) {
+  if (isPending) return <ProductListSkeleton />
+
+  if (isError) return <ProductListError message={getErrorMessage(error)} onRetry={() => refetch()} />
+
+  if (data.products.length === 0) return <ProductListEmpty />
+
   return (
     <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:mt-20 lg:gap-6">
-      {products.map((product, i) => {
+      {data.products.map((product, i) => {
         const Icon = productIcons[product.icon]
         return (
           <Reveal as="article" key={product.id} delay={(i % 3) * 0.12} className={`service-card ${product.color}`}>

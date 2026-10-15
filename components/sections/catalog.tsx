@@ -1,7 +1,6 @@
 import { ProductList } from '@/components/catalog/product-list'
-import { products } from '@/lib/data'
 
-/** Parte estática do catálogo. A lista de produtos fica em <ProductList />. */
+/** Parte estática do catálogo (Server Component). A lista busca os dados da API em <ProductList />. */
 export function Catalog() {
   return (
     <section id="catalogo" className="border-y border-white/10 bg-card/40 px-5 py-24 lg:px-8 lg:py-32">
@@ -15,7 +14,7 @@ export function Catalog() {
             Chaveiros, decoração e peças personalizadas — feitas sob medida pra você.
           </p>
         </div>
-        <ProductList products={products} />
+        <ProductList />
       </div>
     </section>
   )
