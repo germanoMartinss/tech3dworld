@@ -5,7 +5,6 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Tech3Dworld — Do digital para o real',
   description: 'Um laboratório criativo na interseção entre tecnologia, design e fabricação 3D.',
-  generator: 'v0.app',
 }
 
 export const viewport: Viewport = {

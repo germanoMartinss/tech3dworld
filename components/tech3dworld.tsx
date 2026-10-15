@@ -77,7 +77,7 @@ export function Tech3DWorld() {
           </motion.div>
           <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative mx-auto w-full max-w-[460px] lg:max-w-[560px] xl:max-w-[620px]">
             <Image src={logo} alt="Logo neon Tech3Dworld" width={600} height={600} priority className="relative z-10 w-full animate-float object-contain drop-shadow-[0_0_25px_rgba(255,45,177,0.5)]" />
-            <div className="absolute -bottom-2 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap border border-secondary/50 bg-background/80 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-secondary lg:px-5 lg:py-2.5 lg:text-xs">// criando possibilidades_</div>
+            <div className="absolute -bottom-2 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap border border-secondary/50 bg-background/80 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-secondary lg:px-5 lg:py-2.5 lg:text-xs">{'// criando possibilidades_'}</div>
           </motion.div>
         </div>
       </section>
