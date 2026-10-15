@@ -5,7 +5,7 @@ import { logo } from '@/lib/site'
 
 export function Hero() {
   return (
-    <section id="inicio" className="relative flex min-h-screen items-center px-5 pb-20 pt-32 lg:px-8 lg:pb-28 lg:pt-40">
+    <section id="inicio" className="relative flex min-h-svh items-center px-5 pb-20 pt-32 lg:px-8 lg:pb-28 lg:pt-40">
       <div className="gridlines pointer-events-none absolute inset-0 opacity-40" />
       <div className="scanline pointer-events-none absolute inset-0" />
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 xl:max-w-[90rem] xl:gap-20">
