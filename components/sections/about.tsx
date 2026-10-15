@@ -7,7 +7,7 @@ export function About() {
       <div className="neon-orb blue" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16 xl:max-w-[90rem]">
         <Reveal>
-          <p className="eyebrow lg:text-xs">01 / nossa visão</p>
+          <p className="eyebrow">01 / nossa visão</p>
           <h2 className="mt-4 max-w-lg font-mono text-4xl font-bold uppercase leading-tight text-white sm:text-5xl lg:mt-6 lg:max-w-xl lg:text-6xl">
             A tecnologia é melhor quando <span className="neon-text text-secondary">vira experiência.</span>
           </h2>

@@ -9,7 +9,7 @@ export function Process() {
   return (
     <section id="processo" className="border-t border-white/10 px-5 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl xl:max-w-[90rem]">
-        <p className="eyebrow lg:text-xs">04 / como acontece</p>
+        <p className="eyebrow">04 / como acontece</p>
         <h2 className="mt-4 max-w-2xl font-mono text-4xl font-bold uppercase text-white sm:text-5xl lg:mt-6 lg:max-w-3xl lg:text-6xl">
           Uma ideia.<br /><span className="text-secondary">Várias dimensões.</span>
         </h2>

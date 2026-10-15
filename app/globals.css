@@ -16,8 +16,9 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+  /* --font-inter e --font-space-mono são criadas pelo next/font em app/layout.tsx. */
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
 }
 
 :root {
@@ -40,20 +41,29 @@
 /* Em @layer base para não vencer as classes border-* do Tailwind (que ficam em @layer utilities). */
 @layer base {
   * { border-color: var(--border); }
+  /* Foco visível para teclado em links e botões. Componentes shadcn usam outline-none + ring (utilities vencem base). */
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 }
 html { scroll-behavior: smooth; }
-body { background: var(--background); color: var(--foreground); font-family: 'Inter', sans-serif; }
+body { background: var(--background); color: var(--foreground); font-family: var(--font-inter), sans-serif; }
 
 .gridlines { background-image: linear-gradient(rgba(255,45,177,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,204,255,.06) 1px, transparent 1px); background-size: 58px 58px; mask-image: linear-gradient(to bottom, black, transparent 85%); }
 .scanline { background: repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,.018) 4px); }
 .text-gradient { background: linear-gradient(100deg, #ff2db1 8%, #ff8a21 48%, #ffe126 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--secondary); }
+.eyebrow { font-family: var(--font-space-mono), monospace; font-size: .75rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--secondary); }
 .service-card { min-height: 340px; border: 1px solid rgba(255,255,255,.12); padding: 28px; transition: transform .3s ease, border-color .3s ease, background .3s ease; }
 @media (min-width: 1024px) { .service-card { min-height: 400px; padding: 36px; } }
 .service-card:hover { transform: translateY(-8px); border-color: currentColor; background: rgba(255,255,255,.04); }
 .service-card.pink { color: var(--primary); } .service-card.orange { color: #ff8a21; } .service-card.blue { color: var(--secondary); }
 .animate-float { animation: float 5s ease-in-out infinite; }
 @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
+
+/* Entrada do hero em CSS (e não framer-motion): começa no primeiro paint, sem esperar o JS hidratar,
+   então o h1/logo (candidatos a LCP) aparecem antes. `both` mantém o estado inicial antes de começar. */
+.hero-enter { animation: hero-fade-up .7s ease-out both; }
+.hero-enter-zoom { animation: hero-zoom 1s ease-out both; }
+@keyframes hero-fade-up { from { opacity: 0; transform: translateY(24px); } }
+@keyframes hero-zoom { from { opacity: 0; transform: scale(.85); } }
 
 /* ---------- Neon ----------
    O brilho é estático (text-shadow/box-shadow animados repintam a cada quadro).

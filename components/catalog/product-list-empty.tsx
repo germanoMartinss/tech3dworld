@@ -1,4 +1,5 @@
 import { ArrowRight, PackageOpen } from 'lucide-react'
+import { ExternalLink } from '@/components/external-link'
 import { whatsappContactLink } from '@/lib/site'
 
 export function ProductListEmpty() {
@@ -9,9 +10,9 @@ export function ProductListEmpty() {
       <p className="mt-3 max-w-md font-light leading-7 text-white/60 lg:text-lg">
         Estamos preparando novas peças. Enquanto isso, conte pra gente o que você imagina.
       </p>
-      <a href={whatsappContactLink} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:border-secondary hover:text-secondary">
+      <ExternalLink href={whatsappContactLink} className="mt-8 inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:border-secondary hover:text-secondary">
         Fale conosco <ArrowRight className="ml-2 size-4" aria-hidden="true" />
-      </a>
+      </ExternalLink>
     </div>
   )
 }

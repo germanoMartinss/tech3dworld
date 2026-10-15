@@ -5,38 +5,29 @@ import type { ReactNode } from 'react'
 
 // `visible` é uma função que recebe o `custom` (o atraso). A transição precisa ficar
 // dentro da variante: uma prop `transition` no componente é ignorada quando a variante define a sua.
-const variants = {
-  fadeUp: {
-    hidden: { opacity: 0, y: 24 },
-    visible: (delay = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.7, delay } }),
-  },
-  zoom: {
-    hidden: { opacity: 0, scale: 0.85 },
-    visible: (delay = 0) => ({ opacity: 1, scale: 1, transition: { duration: 1, delay } }),
-  },
-} satisfies Record<string, Variants>
+const variants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.7, delay } }),
+}
 
 type RevealProps = {
   children: ReactNode
   className?: string
   as?: 'div' | 'article'
-  variant?: keyof typeof variants
-  /** 'mount': anima ao carregar a página. 'inView': anima ao entrar na tela (uma vez). */
-  trigger?: 'mount' | 'inView'
   /** Atraso em segundos, para animações escalonadas. */
   delay?: number
 }
 
 /**
- * Ilha client-side para animações de entrada. Permite que as seções
- * continuem sendo Server Components e só este wrapper vá para o navegador.
+ * Anima a entrada quando o elemento aparece na tela (uma vez). É uma ilha client-side:
+ * as seções continuam Server Components e só este wrapper vai para o navegador.
+ * O hero não usa este componente: acima da dobra a animação é CSS, para não esperar o JavaScript (LCP).
  */
-export function Reveal({ children, className, as = 'div', variant = 'fadeUp', trigger = 'inView', delay }: RevealProps) {
+export function Reveal({ children, className, as = 'div', delay }: RevealProps) {
   const Component = as === 'article' ? motion.article : motion.div
-  const animation = trigger === 'mount' ? { animate: 'visible' } : { whileInView: 'visible', viewport: { once: true } }
 
   return (
-    <Component initial="hidden" {...animation} variants={variants[variant]} custom={delay} className={className}>
+    <Component initial="hidden" whileInView="visible" viewport={{ once: true }} variants={variants} custom={delay} className={className}>
       {children}
     </Component>
   )

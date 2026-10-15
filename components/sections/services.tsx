@@ -12,7 +12,7 @@ export function Services() {
   return (
     <section id="servicos" className="px-5 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl xl:max-w-[90rem]">
-        <p className="eyebrow lg:text-xs">02 / o que fazemos</p>
+        <p className="eyebrow">02 / o que fazemos</p>
         <div className="mt-4 flex flex-col justify-between gap-5 md:flex-row md:items-end lg:mt-6">
           <h2 className="font-mono text-4xl font-bold uppercase text-white sm:text-5xl lg:text-6xl">
             Ferramentas para<br /><span className="text-gradient neon-gradient">imaginar maior.</span>
