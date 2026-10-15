@@ -1,4 +1,5 @@
-import { ProductList } from '@/components/catalog/product-list'
+import { Suspense } from 'react'
+import { ProductList, ProductListFallback } from '@/components/catalog/product-list'
 
 /** Parte estática do catálogo (Server Component). A lista busca os dados da API em <ProductList />. */
 export function Catalog() {
@@ -14,7 +15,10 @@ export function Catalog() {
             Chaveiros, decoração e peças personalizadas — feitas sob medida pra você.
           </p>
         </div>
-        <ProductList />
+        {/* useSearchParams numa página estática exige Suspense (senão o build falha). */}
+        <Suspense fallback={<ProductListFallback />}>
+          <ProductList />
+        </Suspense>
       </div>
     </section>
   )

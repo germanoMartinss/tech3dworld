@@ -14,6 +14,8 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'Space Mono', monospace;
 }
@@ -30,6 +32,9 @@
   --muted: #171025;
   --muted-foreground: #aaa3bc;
   --border: rgba(255,255,255,0.12);
+  --input: rgba(255,255,255,0.2);
+  /* Anel de foco dos componentes shadcn (focus-visible:ring-ring). */
+  --ring: #00ccff;
 }
 
 * { border-color: var(--border); }

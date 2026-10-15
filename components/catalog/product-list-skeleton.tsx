@@ -5,7 +5,7 @@ const PLACEHOLDER_COUNT = 6
 /** Cards-fantasma com as mesmas dimensões do card real, para a página não "pular" quando os dados chegam. */
 export function ProductListSkeleton() {
   return (
-    <div role="status" className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:mt-20 lg:gap-6">
+    <div role="status" className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:gap-6">
       <span className="sr-only">Carregando produtos…</span>
       {Array.from({ length: PLACEHOLDER_COUNT }, (_, i) => (
         <div key={i} aria-hidden="true" className="min-h-[340px] border border-white/12 p-7 lg:min-h-[400px] lg:p-9">

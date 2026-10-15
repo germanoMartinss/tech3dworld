@@ -6,9 +6,15 @@ import { isAxiosError } from 'axios'
 import { useState, type ReactNode } from 'react'
 import { describeError } from '@/lib/api'
 
-/** Erros 4xx não são repetidos (o pedido está errado); falhas 5xx/rede são repetidas 1 vez. */
+/**
+ * Não repete: 4xx (o pedido está errado) nem timeout (o usuário já esperou o tempo máximo).
+ * Repete 1 vez: 5xx e falhas de rede, que costumam ser passageiras.
+ */
 function shouldRetry(failureCount: number, error: Error) {
-  if (isAxiosError(error) && error.response && error.response.status < 500) return false
+  if (isAxiosError(error)) {
+    if (error.code === 'ECONNABORTED') return false
+    if (error.response && error.response.status < 500) return false
+  }
   return failureCount < 1
 }
 

@@ -14,7 +14,7 @@ type ProductListErrorProps = {
  */
 export function ProductListError({ message, detail, onRetry }: ProductListErrorProps) {
   return (
-    <div role="alert" className="mt-14 flex flex-col items-center border border-white/12 px-6 py-16 text-center lg:mt-20 lg:py-20">
+    <div role="alert" className="flex flex-col items-center border border-white/12 px-6 py-16 text-center lg:py-20">
       <TriangleAlert className="size-10 text-primary lg:size-12" aria-hidden="true" />
       <h3 className="mt-6 font-mono text-xl font-bold uppercase text-white lg:text-2xl">Não foi possível carregar o catálogo</h3>
       <p className="mt-3 max-w-md font-light leading-7 text-white/60 lg:text-lg">{message}</p>
