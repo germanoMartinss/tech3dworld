@@ -23,9 +23,9 @@ export function Services() {
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-3 lg:mt-20 lg:gap-6">
           {services.map(({ icon: Icon, title, copy, color }, i) => (
-            <Reveal as="article" key={title} delay={i * 0.12} className={`service-card ${color}`}>
+            <Reveal as="article" key={title} delay={i * 0.12} className={`service-card group ${color}`}>
               <Icon className="size-8 lg:size-10" />
-              <p className="mt-16 font-mono text-xl font-bold uppercase text-white lg:mt-20 lg:text-2xl">{title}</p>
+              <h3 className="mt-16 font-mono text-xl font-bold uppercase text-white lg:mt-20 lg:text-2xl">{title}</h3>
               <p className="mt-3 font-light leading-7 tracking-[0.01em] text-white/60 lg:mt-4 lg:text-lg">{copy}</p>
               <ArrowRight className="mt-8 size-5 transition group-hover:translate-x-2 lg:mt-10 lg:size-6" />
             </Reveal>

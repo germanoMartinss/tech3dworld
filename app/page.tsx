@@ -10,16 +10,18 @@ import { Services } from '@/components/sections/services'
 
 export default function Page() {
   return (
-    <main className="min-h-screen overflow-hidden bg-background text-foreground">
+    <>
       <Header />
-      <Hero />
-      <About />
-      <Services />
-      <Catalog />
-      <Process />
-      <Contact />
+      <main className="min-h-screen bg-background text-foreground">
+        <Hero />
+        <About />
+        <Services />
+        <Catalog />
+        <Process />
+        <Contact />
+      </main>
       <Footer />
       <ScrollButton />
-    </main>
+    </>
   )
 }

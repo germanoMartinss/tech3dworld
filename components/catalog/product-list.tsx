@@ -16,7 +16,7 @@ export function ProductList({ products }: ProductListProps) {
         return (
           <Reveal as="article" key={product.id} delay={(i % 3) * 0.12} className={`service-card ${product.color}`}>
             <Icon className="size-8 lg:size-10" />
-            <p className="mt-16 font-mono text-xl font-bold uppercase text-white lg:mt-20 lg:text-2xl">{product.title}</p>
+            <h3 className="mt-16 font-mono text-xl font-bold uppercase text-white lg:mt-20 lg:text-2xl">{product.title}</h3>
             <p className="mt-3 font-light leading-7 tracking-[0.01em] text-white/60 lg:mt-4 lg:text-lg">{product.description}</p>
             <div className="mt-8 flex items-center justify-between gap-3 lg:mt-10">
               <span className="font-mono text-sm text-muted-foreground lg:text-base">A partir de R$ {product.priceFrom}</span>
