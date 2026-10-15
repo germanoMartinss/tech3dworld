@@ -15,7 +15,7 @@ export function Services() {
         <p className="eyebrow lg:text-xs">02 / o que fazemos</p>
         <div className="mt-4 flex flex-col justify-between gap-5 md:flex-row md:items-end lg:mt-6">
           <h2 className="font-mono text-4xl font-bold uppercase text-white sm:text-5xl lg:text-6xl">
-            Ferramentas para<br /><span className="text-gradient">imaginar maior.</span>
+            Ferramentas para<br /><span className="text-gradient neon-gradient">imaginar maior.</span>
           </h2>
           <p className="max-w-sm font-light leading-7 tracking-[0.01em] text-white/75 lg:max-w-md lg:text-lg">
             Da primeira linha de código ao último detalhe da peça final.
@@ -23,8 +23,8 @@ export function Services() {
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-3 lg:mt-20 lg:gap-6">
           {services.map(({ icon: Icon, title, copy, color }, i) => (
-            <Reveal as="article" key={title} delay={i * 0.12} className={`service-card group ${color}`}>
-              <Icon className="size-8 lg:size-10" />
+            <Reveal as="article" key={title} delay={i * 0.12} className={`service-card neon-card group ${color}`}>
+              <Icon className="neon-icon size-8 lg:size-10" />
               <h3 className="mt-16 font-mono text-xl font-bold uppercase text-white lg:mt-20 lg:text-2xl">{title}</h3>
               <p className="mt-3 font-light leading-7 tracking-[0.01em] text-white/60 lg:mt-4 lg:text-lg">{copy}</p>
               <ArrowRight className="mt-8 size-5 transition group-hover:translate-x-2 lg:mt-10 lg:size-6" />

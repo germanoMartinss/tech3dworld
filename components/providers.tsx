@@ -3,6 +3,7 @@
 import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { isAxiosError } from 'axios'
+import { MotionConfig } from 'framer-motion'
 import { useState, type ReactNode } from 'react'
 import { describeError } from '@/lib/api'
 
@@ -41,7 +42,8 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      {/* "user": respeita o prefers-reduced-motion do sistema (sem deslizar/escalar, só opacidade). */}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
       {/* O pacote já vira `() => null` fora de development; não vai para produção. */}
       <ReactQueryDevtools />
     </QueryClientProvider>

@@ -54,4 +54,26 @@ body { background: var(--background); color: var(--foreground); font-family: 'In
 .service-card.pink { color: var(--primary); } .service-card.orange { color: #ff8a21; } .service-card.blue { color: var(--secondary); }
 .animate-float { animation: float 5s ease-in-out infinite; }
 @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+/* ---------- Neon ----------
+   O brilho é estático (text-shadow/box-shadow animados repintam a cada quadro).
+   A única animação contínua (.neon-orb) usa só transform e respeita prefers-reduced-motion. */
+.neon-text { text-shadow: 0 0 4px currentColor, 0 0 18px color-mix(in oklab, currentColor 55%, transparent), 0 0 42px color-mix(in oklab, currentColor 30%, transparent); }
+/* Texto com gradiente tem color: transparent, então o brilho vem de drop-shadow. */
+.neon-gradient { filter: drop-shadow(0 0 10px rgba(255, 45, 177, .45)) drop-shadow(0 0 28px rgba(255, 138, 33, .25)); }
+.neon-icon { filter: drop-shadow(0 0 6px currentColor); }
+.neon-line { position: relative; }
+.neon-line::before { content: ''; position: absolute; top: 0; bottom: 0; left: -1px; width: 1px; background: var(--primary); box-shadow: 0 0 8px 1px var(--primary), 0 0 22px 2px color-mix(in oklab, var(--primary) 50%, transparent); }
+/* Acende o card na cor dele (currentColor vem de .service-card.<cor>). */
+.neon-card { transition: transform .3s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease; }
+.neon-card:hover { box-shadow: 0 0 28px -6px currentColor, inset 0 0 36px -20px currentColor; }
+.neon-orb { position: absolute; z-index: -1; width: min(28rem, 80vw); aspect-ratio: 1; border-radius: 9999px; filter: blur(80px); pointer-events: none; }
+.neon-orb.pink { top: -35%; left: -10%; background: var(--primary); opacity: .22; }
+.neon-orb.blue { bottom: -40%; right: -10%; background: var(--secondary); opacity: .16; }
+@media (prefers-reduced-motion: no-preference) {
+  .neon-orb { animation: orb-drift 14s ease-in-out infinite alternate; }
+  .neon-orb.blue { animation-delay: -7s; }
+}
+@keyframes orb-drift { to { transform: translate3d(8%, 10%, 0) scale(1.1); } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
